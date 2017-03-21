@@ -262,6 +262,166 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-条形图中的两个label" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/20/条形图中的两个label/" class="article-date">
+      <time datetime="2017-03-20T03:54:50.000Z" itemprop="datePublished">2017-03-20</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/20/条形图中的两个label/">条形图中的两个label</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><img src="http://i.imgur.com/G9vNLux.png" alt="两个Label"></p>
+<p>一般情况下，每个对象有一个单独的label，但是当你遇到需要两个分开label的时候（我也不理解为什么name不直接用样例legend），好吧，既然设计稿长这样，那就做这样吧。</p>
+<p>首先，条形图默认有一个label，我们可以对它进行设置，在图形上显示name或者value，或者name+value，但是无法显示两个分离的label，这个时候，我能想到的解决方法就是，用其它配置，伪装成label的样子。</p>
+<p>偶就是这么机智~</p>
+<p>因为legend和tooltip需要用，所以我最后选中了markPoint，markPoint通常用于显示‘最大值’‘最小值’或者‘平均值’等特殊值，鉴于它能在页面上显示，那就用它了。</p>
+<p><strong>PS:用markPoint显示的前提是，要显示的value必须是特殊值。在这个例子中两个对象是单个数据，所以设置为‘max’还是‘min’都OK。</strong></p>
+<p>需要处理的问题是：markPoint有默认的symbol：热气球<img src="http://i.imgur.com/63uwSH5.png" alt="标记背景">，试了为空，不行哦，真是任性，既然markPoint一定要有背景图，而我又不想要背景图，咋办呢<br>那就给他一张好了，设置透明背景图就OK了!<br><img src="http://i.imgur.com/HXG4hfX.png" alt=""></p>
+<p>然后把文字样式改成对应的，就Everything is OK！<br><img src="http://i.imgur.com/q768b46.gif" alt=""></p>
+<p>配置长这样：</p>
+<pre><code>var option = {
+      tooltip : {
+          trigger: &apos;item&apos;,
+          axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+              type : &apos;shadow&apos;        // 默认为直线，可选为：&apos;line&apos; | &apos;shadow&apos;
+          }
+      },
+      grid: {
+          top: 80,
+          bottom: 30
+      },
+      legend:{
+          data : [&apos;最近撤销&apos;,&apos;最近新增&apos;]
+      },
+      xAxis: {
+          type : &apos;value&apos;,
+          position: &apos;top&apos;,
+          splitLine: {show: false},
+      },
+      yAxis: {
+          type : &apos;category&apos;,
+          axisLine: {show: true},
+           axisLabel: {show: false},//隐藏y轴的name
+          axisTick: {show: false},//隐藏y轴的刻度
+          splitLine: {show: false},//隐藏y轴的线
+          data : [&apos;最近撤销&apos;,&apos;最近新增&apos;]
+      },
+      series : [
+          {
+              type:&apos;bar&apos;,
+              name:&apos;最近撤销&apos;, 
+             markPoint : {
+                  symbolRotate: 90,
+                  symbol:&apos;image://./images/ico_opacity.png&apos;,//设置透明图层，显示出数值value
+                  label:{
+                      normal:{
+                          show:true,
+                          position:[-20,20],
+                          textStyle:{
+                                 color: &apos;blue&apos;
+                          }
+                      }
+                  },
+                  data : [//markPoint凸显特殊对象，like &apos;max&apos; &apos;min&apos;
+                      {type : &apos;max&apos;, name: &apos;最大值&apos;}
+
+                  ]
+              },
+              label:{
+                          normal: {
+                              show: true,
+                              formatter:&apos;{b}&apos;,//渲染name
+                              position: &apos;right&apos;
+                          }
+              },
+              data:[-0.07]
+          },
+           {
+              type:&apos;bar&apos;,
+              name:&apos;最近新增&apos;, 
+              markPoint : {
+                  symbolRotate: 90,
+                  symbol:&apos;image://./images/ico_opacity.png&apos;,
+                  label:{
+                      normal:{
+                          show:true,
+                          position:[-20,20],
+                          textStyle:{
+                                 color: &apos;blue&apos;
+                          }
+                      }
+                  },
+                  data : [
+                      {type : &apos;max&apos;, name: &apos;最大值&apos;}
+
+                  ]
+              },
+
+                label: {
+                      normal: {
+                          show: true,
+                          formatter:&apos;{b}&apos;,//渲染name
+                          position: &apos;right&apos;
+                      }
+                  },
+              data:[0.06]
+          }
+      ],
+      color: [&apos;#90cbe7&apos;,&apos;#e59d81&apos;]
+  };
+</code></pre><p><strong>有bug出没~</strong></p>
+<p>其实也说不上bug，只是由markPoint伪装的label文字样式要自己调，当图表的对象个数较少、颜色固定就好办，多了配置量就大了~<br>先这样吧。<br>后面想到更好的再改</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Echarts/">Echarts</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -282,6 +442,62 @@
   
     <h1 itemprop="name">
       <a class="article-title" href="/2017/03/20/hello-world/">ReadMe</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <pre><code>偶滴博客只是写写自己平日里遇到的坑，犯的愚蠢的错误，还有学到的新知识。
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-ReadMe" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/20/ReadMe/" class="article-date">
+      <time datetime="2017-03-20T02:24:51.093Z" itemprop="datePublished">2017-03-20</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/20/ReadMe/">ReadMe</a>
     </h1>
   
 
