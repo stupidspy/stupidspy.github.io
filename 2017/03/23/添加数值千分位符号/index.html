@@ -15,24 +15,36 @@
 
 
 
-<meta name="description" content="一般情况下，每个对象有一个单独的label，但是当你遇到需要两个分开label的时候（我也不理解为什么name不直接用样例legend），好吧，既然设计稿长这样，那就做这样吧。
-首先，条形图默认有一个label，我们可以对它进行设置，在图形上显示name或者value，或者name+value，但是无法显示两个分离的label，这个时候，我能想到的解决方法就是，用其它配置，伪装成label的样子">
+<meta name="description" content="在页面中，遇到数值的时候，要记得添加千分位符如：100.00  -&amp;gt;   100.001000.00   -&amp;gt;   1,000.001000000.00   -&amp;gt; 1,000,000.00
+一、针对正整数/*
+ * 为正整数添加千分位符号（仅限正整数）
+ * @param num (Number或者String)
+ * @type String
+ * */
+function nu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="条形图中的两个label">
-<meta property="og:url" content="http://stupidspy.com/2017/03/20/条形图中的两个label/index.html">
+<meta property="og:title" content="添加数值千分位符号">
+<meta property="og:url" content="http://stupidspy.com/2017/03/23/添加数值千分位符号/index.html">
 <meta property="og:site_name" content="stupidspy's Blog">
-<meta property="og:description" content="一般情况下，每个对象有一个单独的label，但是当你遇到需要两个分开label的时候（我也不理解为什么name不直接用样例legend），好吧，既然设计稿长这样，那就做这样吧。
-首先，条形图默认有一个label，我们可以对它进行设置，在图形上显示name或者value，或者name+value，但是无法显示两个分离的label，这个时候，我能想到的解决方法就是，用其它配置，伪装成label的样子">
-<meta property="og:image" content="http://i.imgur.com/G9vNLux.png">
-<meta property="og:image" content="http://i.imgur.com/63uwSH5.png">
-<meta property="og:image" content="http://i.imgur.com/HXG4hfX.png">
-<meta property="og:image" content="http://i.imgur.com/q768b46.gif">
-<meta property="og:updated_time" content="2017-03-21T02:16:51.918Z">
+<meta property="og:description" content="在页面中，遇到数值的时候，要记得添加千分位符如：100.00  -&amp;gt;   100.001000.00   -&amp;gt;   1,000.001000000.00   -&amp;gt; 1,000,000.00
+一、针对正整数/*
+ * 为正整数添加千分位符号（仅限正整数）
+ * @param num (Number或者String)
+ * @type String
+ * */
+function nu">
+<meta property="og:image" content="http://i.imgur.com/oJ9BFs3.png">
+<meta property="og:updated_time" content="2017-03-23T09:11:41.685Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="条形图中的两个label">
-<meta name="twitter:description" content="一般情况下，每个对象有一个单独的label，但是当你遇到需要两个分开label的时候（我也不理解为什么name不直接用样例legend），好吧，既然设计稿长这样，那就做这样吧。
-首先，条形图默认有一个label，我们可以对它进行设置，在图形上显示name或者value，或者name+value，但是无法显示两个分离的label，这个时候，我能想到的解决方法就是，用其它配置，伪装成label的样子">
-<meta name="twitter:image" content="http://i.imgur.com/G9vNLux.png">
+<meta name="twitter:title" content="添加数值千分位符号">
+<meta name="twitter:description" content="在页面中，遇到数值的时候，要记得添加千分位符如：100.00  -&amp;gt;   100.001000.00   -&amp;gt;   1,000.001000000.00   -&amp;gt; 1,000,000.00
+一、针对正整数/*
+ * 为正整数添加千分位符号（仅限正整数）
+ * @param num (Number或者String)
+ * @type String
+ * */
+function nu">
+<meta name="twitter:image" content="http://i.imgur.com/oJ9BFs3.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -64,7 +76,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>条形图中的两个label | stupidspy&#39;s Blog</title>
+<title>添加数值千分位符号 | stupidspy&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -264,11 +276,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-条形图中的两个label" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-添加数值千分位符号" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/03/20/条形图中的两个label/" class="article-date">
-      <time datetime="2017-03-20T03:54:50.000Z" itemprop="datePublished">2017-03-20</time>
+      <a href="/2017/03/23/添加数值千分位符号/" class="article-date">
+      <time datetime="2017-03-23T09:04:25.000Z" itemprop="datePublished">2017-03-23</time>
 </a>
 
 
@@ -283,7 +295,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      条形图中的两个label
+      添加数值千分位符号
     </h1>
   
 
@@ -294,7 +306,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Echarts/">Echarts</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -304,108 +316,89 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><img src="http://i.imgur.com/G9vNLux.png" alt="两个Label"></p>
-<p>一般情况下，每个对象有一个单独的label，但是当你遇到需要两个分开label的时候（我也不理解为什么name不直接用样例legend），好吧，既然设计稿长这样，那就做这样吧。</p>
-<p>首先，条形图默认有一个label，我们可以对它进行设置，在图形上显示name或者value，或者name+value，但是无法显示两个分离的label，这个时候，我能想到的解决方法就是，用其它配置，伪装成label的样子。</p>
-<p>偶就是这么机智~</p>
-<p>因为legend和tooltip需要用，所以我最后选中了markPoint，markPoint通常用于显示‘最大值’‘最小值’或者‘平均值’等特殊值，鉴于它能在页面上显示，那就用它了。</p>
-<p><strong>PS:用markPoint显示的前提是，要显示的value必须是特殊值。在这个例子中两个对象是单个数据，所以设置为‘max’还是‘min’都OK。</strong></p>
-<p>需要处理的问题是：markPoint有默认的symbol：热气球<img src="http://i.imgur.com/63uwSH5.png" alt="标记背景">，试了为空，不行哦，真是任性，既然markPoint一定要有背景图，而我又不想要背景图，咋办呢<br>那就给他一张好了，设置透明背景图就OK了!<br><img src="http://i.imgur.com/HXG4hfX.png" alt=""></p>
-<p>然后把文字样式改成对应的，就Everything is OK！<br><img src="http://i.imgur.com/q768b46.gif" alt=""></p>
-<p>配置长这样：</p>
-<pre><code>var option = {
-      tooltip : {
-          trigger: &apos;item&apos;,
-          axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-              type : &apos;shadow&apos;        // 默认为直线，可选为：&apos;line&apos; | &apos;shadow&apos;
-          }
-      },
-      grid: {
-          top: 80,
-          bottom: 30
-      },
-      legend:{
-          data : [&apos;最近撤销&apos;,&apos;最近新增&apos;]
-      },
-      xAxis: {
-          type : &apos;value&apos;,
-          position: &apos;top&apos;,
-          splitLine: {show: false},
-      },
-      yAxis: {
-          type : &apos;category&apos;,
-          axisLine: {show: true},
-           axisLabel: {show: false},//隐藏y轴的name
-          axisTick: {show: false},//隐藏y轴的刻度
-          splitLine: {show: false},//隐藏y轴的线
-          data : [&apos;最近撤销&apos;,&apos;最近新增&apos;]
-      },
-      series : [
-          {
-              type:&apos;bar&apos;,
-              name:&apos;最近撤销&apos;, 
-             markPoint : {
-                  symbolRotate: 90,
-                  symbol:&apos;image://./images/ico_opacity.png&apos;,//设置透明图层，显示出数值value
-                  label:{
-                      normal:{
-                          show:true,
-                          position:[-20,20],
-                          textStyle:{
-                                 color: &apos;blue&apos;
-                          }
-                      }
-                  },
-                  data : [//markPoint凸显特殊对象，like &apos;max&apos; &apos;min&apos;
-                      {type : &apos;max&apos;, name: &apos;最大值&apos;}
+        <h2 id="在页面中，遇到数值的时候，要记得添加千分位符"><a href="#在页面中，遇到数值的时候，要记得添加千分位符" class="headerlink" title="在页面中，遇到数值的时候，要记得添加千分位符"></a>在页面中，遇到<strong>数值</strong>的时候，要<strong>记得添加千分位符</strong></h2><p>如：<br>100.00  -&gt;   <strong>100.00</strong><br>1000.00   -&gt;   <strong>1,000.00</strong><br>1000000.00   -&gt; <strong>1,000,000.00</strong></p>
+<h2 id="一、针对正整数"><a href="#一、针对正整数" class="headerlink" title="一、针对正整数"></a>一、针对正整数</h2><pre><code>/*
+ * 为正整数添加千分位符号（仅限正整数）
+ * @param num (Number或者String)
+ * @type String
+ * */
+function numSetSymbol (num){
+    var result = num.toString();
+    for (var i = 0; i &lt; Math.floor((result.length-(1+i))/3); i++)
+    {
+        result = result.substring(0,result.length-(4*i+3))+&apos;,&apos;+result.substring(result.length-(4*i+3));
+    }
+    return result;
+    /*返回值为字符串*/
+}
+</code></pre><h2 id="二、不限数值类型"><a href="#二、不限数值类型" class="headerlink" title="二、不限数值类型"></a>二、不限数值类型</h2><pre><code>/**
+ * 将数值四舍五入后格式化.（不限数值类型）
+ *
+ * @param num 数值(Number或者String)
+ * @param cent 要保留的小数位(Number)
+ * @param isThousand 是否需要千分位 0:不需要,1:需要(数值类型);
+ * @return 格式的字符串,如&apos;1,234,567.45&apos;
+ * @type String
+ */
+function formatNumber(num,cent,isThousand) {
+    num = num.toString().replace(/\$|\,/g,&apos;&apos;);
 
-                  ]
-              },
-              label:{
-                          normal: {
-                              show: true,
-                              formatter:&apos;{b}&apos;,//渲染name
-                              position: &apos;right&apos;
-                          }
-              },
-              data:[-0.07]
-          },
-           {
-              type:&apos;bar&apos;,
-              name:&apos;最近新增&apos;, 
-              markPoint : {
-                  symbolRotate: 90,
-                  symbol:&apos;image://./images/ico_opacity.png&apos;,
-                  label:{
-                      normal:{
-                          show:true,
-                          position:[-20,20],
-                          textStyle:{
-                                 color: &apos;blue&apos;
-                          }
-                      }
-                  },
-                  data : [
-                      {type : &apos;max&apos;, name: &apos;最大值&apos;}
+    // 检查传入数值为数值类型
+    if(isNaN(num)){
+        num = &quot;0&quot;;
+    }
 
-                  ]
-              },
+    // 获取符号(正/负数)
+    sign = (num == (num = Math.abs(num)));
 
-                label: {
-                      normal: {
-                          show: true,
-                          formatter:&apos;{b}&apos;,//渲染name
-                          position: &apos;right&apos;
-                      }
-                  },
-              data:[0.06]
-          }
-      ],
-      color: [&apos;#90cbe7&apos;,&apos;#e59d81&apos;]
-  };
-</code></pre><p><strong>有bug出没~</strong></p>
-<p>其实也说不上bug，只是由markPoint伪装的label文字样式要自己调，当图表的对象个数较少、颜色固定就好办，多了配置量就大了~<br>先这样吧。<br>后面想到更好的再改</p>
+    num = Math.floor(num*Math.pow(10,cent)+0.50000000001); // 把指定的小数位先转换成整数.多余的小数位四舍五入
+    cents = num%Math.pow(10,cent);       // 求出小数位数值
+    num = Math.floor(num/Math.pow(10,cent)).toString();  // 求出整数位数值
+    cents = cents.toString();        // 把小数位转换成字符串,以便求小数位长度
 
+    // 补足小数位到指定的位数
+    while(cents.length&lt;cent){
+        cents = &quot;0&quot; + cents;
+    }
+
+    if(isThousand) {
+        // 对整数部分进行千分位格式化.
+        for (var i = 0; i &lt; Math.floor((num.length-(1+i))/3); i++)
+            num = num.substring(0,num.length-(4*i+3))+&apos;,&apos;+ num.substring(num.length-(4*i+3));
+    }
+
+    if (cent &gt; 0)
+        return (((sign)?&apos;&apos;:&apos;-&apos;) + num + &apos;.&apos; + cents);
+    else
+        return (((sign)?&apos;&apos;:&apos;-&apos;) + num);
+}    
+</code></pre><p>eg.<img src="http://i.imgur.com/oJ9BFs3.png" alt="千分位"></p>
+<hr>
+<p>2017/1/4<br>都新年了，本宝宝才来更新。<br>当年刚上传上去，我师糊就来砸场子了，真是晒脸。</p>
+<pre><code>/*
+ * 最简单粗暴版一
+ * @param X 不限数值类型
+ * @type String
+ * */
+function numberWithCommas1(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, &quot;,&quot;);
+}
+
+//简单粗暴版二
+function numberWithCommas(x) {
+    x = x.toString();
+    var pattern = /(-?\d+)(\d{3})/;
+    while (pattern.test(x))
+        x = x.replace(pattern, &quot;$1,$2&quot;);
+    return x;
+}
+</code></pre><hr>
+<p>2017/2/15<br>又来补一个，这个只是正则表达式写的不一样</p>
+<pre><code>//简单粗暴版三
+function numberWithCommas(x){
+    return x.toString().replace(/(\d)(?=(\d{3})+(\.|$))/g, &apos;$1,&apos;);
+}
+</code></pre>
       
     </div>
     
@@ -413,13 +406,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/03/20/条形图中的两个label/">条形图中的两个label</a></p>
+        <p><span>本文标题:</span><a href="/2017/03/23/添加数值千分位符号/">添加数值千分位符号</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">stupidspy</a></p>
-        <p><span>发布时间:</span>2017-03-20, 11:54:50</p>
-        <p><span>最后更新:</span>2017-03-21, 10:16:51</p>
+        <p><span>发布时间:</span>2017-03-23, 17:04:25</p>
+        <p><span>最后更新:</span>2017-03-23, 17:11:41</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/03/20/条形图中的两个label/" title="条形图中的两个label">http://stupidspy.com/2017/03/20/条形图中的两个label/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://stupidspy.com/2017/03/20/条形图中的两个label/　　作者: stupidspy" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/03/23/添加数值千分位符号/" title="添加数值千分位符号">http://stupidspy.com/2017/03/23/添加数值千分位符号/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://stupidspy.com/2017/03/23/添加数值千分位符号/　　作者: stupidspy" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -432,15 +425,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/03/23/template模板用法/">
-                    template模板用法
+                <a href="/2017/03/23/关于获取日期/">
+                    关于获取日期
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/03/20/ReadMe/">
-                    ReadMe
+                <a href="/2017/03/23/CSS3如何实现超出指定文本以省略号显示效果/">
+                    CSS3如何实现超出指定文本以省略号显示效果
                 </a>
             </div>
         
@@ -452,7 +445,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#在页面中，遇到数值的时候，要记得添加千分位符"><span class="toc-number">1.</span> <span class="toc-text">在页面中，遇到数值的时候，要记得添加千分位符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一、针对正整数"><span class="toc-number">2.</span> <span class="toc-text">一、针对正整数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、不限数值类型"><span class="toc-number">3.</span> <span class="toc-text">二、不限数值类型</span></a></li></ol>
         
     </div>
     <style>
@@ -488,7 +481,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"条形图中的两个label　| stupidspy's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"添加数值千分位符号　| stupidspy's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -508,7 +501,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/03/23/template模板用法/" title="上一篇: template模板用法">
+            <a href="/2017/03/23/关于获取日期/" title="上一篇: 关于获取日期">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -516,7 +509,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/03/20/ReadMe/" title="下一篇: ReadMe">
+            <a href="/2017/03/23/CSS3如何实现超出指定文本以省略号显示效果/" title="下一篇: CSS3如何实现超出指定文本以省略号显示效果">
                 <i class="fa fa-angle-right"></i>
             </a>
         

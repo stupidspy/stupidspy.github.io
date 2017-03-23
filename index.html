@@ -185,7 +185,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Echarts/">Echarts</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Echarts/">Echarts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/date/">date</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/echarts/">echarts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scss/">scss</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/template/">template</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weinre/">weinre</a></li></ul>
                     </div>
                 </section>
                 
@@ -261,6 +261,990 @@
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-仪表盘" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/23/仪表盘/" class="article-date">
+      <time datetime="2017-03-23T09:19:47.000Z" itemprop="datePublished">2017-03-23</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/23/仪表盘/">仪表盘</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>坑爹的仪表盘是我真的不会用还是配置真的这么少？<img src="http://i.imgur.com/Lugl9bq.gif" alt="生无可恋"></p>
+<h3 id="1-设计稿：要实现，能显示年龄段，扇形面积还能表达相应人数量占比（我嘞个去）。"><a href="#1-设计稿：要实现，能显示年龄段，扇形面积还能表达相应人数量占比（我嘞个去）。" class="headerlink" title="1.设计稿：要实现，能显示年龄段，扇形面积还能表达相应人数量占比（我嘞个去）。"></a>1.设计稿：要实现，能显示年龄段，扇形面积还能表达相应人数量占比（我嘞个去）。</h3><p><img src="http://i.imgur.com/1LWcgdm.png" alt="设计稿"></p>
+<h3 id="2-用仪表盘gauge实现的"><a href="#2-用仪表盘gauge实现的" class="headerlink" title="2.用仪表盘gauge实现的"></a>2.用仪表盘gauge实现的</h3><p><img src="http://i.imgur.com/Zns4IDk.png" alt="用仪表盘gauge实现的"></p>
+<p>真是丑爆了，label标签还是自己用html和css另外加的，真费时费事费心，结果还被拒绝了。。。心好伤！没有实现表达人数占比。</p>
+<p>参考<a href="http://gallery.echartsjs.com/editor.html?c=xrJtUIdmWe" target="_blank" rel="external">Echarts gallery例子</a></p>
+<pre><code>//仪表盘的配置
+   var gaugeOption = {
+           backgroundColor: &apos;#fff&apos;,
+           title: {
+               text: &apos;户籍总人数：&apos; + sum,
+               subtext: &apos;劳动人口：&apos; + ldNum,
+               x: &apos;center&apos;,
+               y: 45
+           },
+           tooltip: {
+               show: false
+           },
+           series: [{
+               name: &quot;内环仪表盘四段颜色&quot;,
+               type: &quot;gauge&quot;,
+               radius: &apos;80%&apos;,
+               center: [&apos;50%&apos;, &apos;80%&apos;],
+               startAngle: angle[0],//0
+               endAngle: angle[1],//180
+               splitNumber: splitNum,
+               axisLine: {
+                   lineStyle: {
+                       color: [//根据占比控制颜色
+                           [0.06, &apos;#004f7c&apos;],
+                           [0.16, &apos;#c23531&apos;],
+                           [0.6, &apos;#ea9d45&apos;],
+                           [1, &quot;#37aeaa&quot;]
+                       ],
+                       width: 100  //仪表盘宽度
+                   }
+               },
+               axisTick: {//刻度线
+                   show: true,
+                   length: 20 
+               },
+               axisLabel: {//刻度标签
+                   show: false,
+                   distance: -50,
+                   textStyle: {        其余属性默认使用全局文本样式，详见TEXTSTYLE
+                       color: &apos;#666&apos;,
+                       fontSize: 15,
+                       fontWeight: &apos;normal&apos;
+                   }
+
+               },
+               splitLine: {//大刻度线
+                   show: true,
+                   length: 20,
+                   lineStyle: {
+                       color: &apos;#fff&apos;,
+                       width: 2
+                   }
+               },
+
+
+               itemStyle: {
+                   normal: {
+                       color: &apos;#e8e9ee&apos;,
+                       backgroundColor: &apos;#e8e9ee&apos;
+                   },
+                   emphasis: {
+                       color: &apos;#e8e9ee&apos;,
+                       backgroundColor: &apos;#e8e9ee&apos;
+                   }
+               },
+
+               title: {
+                   show: false
+               },
+               pointer: {//指针
+                   width: 5,
+                   length: &apos;85%&apos;
+
+               },
+               detail: {//仪表盘详情
+                   show: false
+               },
+               data: [{
+                   name: &quot;&quot;,
+                   value: curVal
+               }]
+           }]
+       };
+</code></pre><h3 id="3-用饼图pie实现的"><a href="#3-用饼图pie实现的" class="headerlink" title="3.用饼图pie实现的"></a>3.用饼图pie实现的</h3><p><img src="http://i.imgur.com/pPQdmWL.png" alt="用饼图pie实现的"><br>后来，在机智的需求的火眼金睛以及我开始质疑自己智商的情况下，画出了这个类仪表盘的饼图。</p>
+<pre><code>//类仪表盘配置
+var dataStyle = { 
+    normal: {
+        label: {
+            show:true,
+            formatter: &apos;{a} &lt;br/&gt;{b} &apos;
+
+        },
+        labelLine: {show:true}
+        // shadowBlur: 40,
+        // shadowColor: &apos;rgba(40, 40, 40, 0.5)&apos;,
+    }
+};
+var placeHolderStyle = {
+    normal : {
+        color: &apos;rgba(0,0,0,0)&apos;,
+        label: {show:false},
+        labelLine: {show:false}
+    },
+    emphasis : {
+        color: &apos;rgba(0,0,0,0)&apos;
+    }
+};
+option = {
+   backgroundColor: &apos;#f4f2e3&apos;,
+     color: [&apos;#85b6b2&apos;, &apos;#6d4f8d&apos;,&apos;#cd5e7e&apos;, &apos;#e38980&apos;,&apos;#f7db88&apos;],
+    tooltip : {
+        show: true,
+        formatter: &quot;{a} &lt;br/&gt;{b} : {c}&quot;
+    },
+    legend: {
+        itemGap:12,
+        data:[&apos;01&apos;,&apos;02&apos;,&apos;03&apos;,&apos;04&apos;,&apos;05&apos;,&apos;06&apos;]
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    series : [
+        {
+            name:&apos;Line 1&apos;,
+            type:&apos;pie&apos;,
+            clockWise:false,
+            radius : [80,200],
+            itemStyle : dataStyle,
+            label:{
+                normal:{
+                    formatter: &apos;&apos;,
+                }
+
+            },
+            hoverAnimation: false,
+            startAngle :0,
+            data:[
+                {
+                    value:30,
+                    name:&apos;01&apos;,
+                    itemStyle:{
+                        normal:{
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: &apos;#85b6b2&apos;
+                            }, {
+                                offset: 1,
+                                color: &apos;#6d4f8d&apos;
+                            }])
+                        }
+                    }
+                },
+                 {
+                    value:30,
+                    name:&apos;02&apos;,
+                    itemStyle:{
+                        normal:{
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: &apos;#85b6b2&apos;
+                            }, {
+                                offset: 1,
+                                color: &apos;#6d4f8d&apos;
+                            }])
+                        }
+                    }
+                },
+                {
+                    value:30,
+                    name:&apos;02&apos;,
+                    itemStyle:{
+                        normal:{
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: &apos;#85b6b2&apos;
+                            }, {
+                                offset: 1,
+                                color: &apos;#6d4f8d&apos;
+                            }])
+                        }
+                    }
+                },
+                {
+                    value:30,
+                    name:&apos;02&apos;,
+                    itemStyle:{
+                        normal:{
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: &apos;#85b6b2&apos;
+                            }, {
+                                offset: 1,
+                                color: &apos;#6d4f8d&apos;
+                            }])
+                        }
+                    }
+                },
+                {
+                    value:120,
+                    name:&apos;01&apos;,
+                    itemStyle:placeHolderStyle
+                }
+
+            ]
+        }
+
+    ]
+};
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/echarts/">echarts</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-About背景图" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/23/About背景图/" class="article-date">
+      <time datetime="2017-03-23T09:16:29.260Z" itemprop="datePublished">2017-03-23</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <hr>
+<p>title: About背景图<br>date: 2017-03-23 17:16:29</p>
+<h2 id="tags-background"><a href="#tags-background" class="headerlink" title="tags: background"></a>tags: background</h2><p><a href="http://www.html-js.com/article/2569" target="_blank" rel="external">背景图覆盖全屏</a></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">body</span> &#123;</div><div class="line"><span class="comment">/* 加载背景图 */</span></div><div class="line"><span class="attribute">background-image</span>: <span class="built_in">url</span>(images/background-photo.jpg);</div><div class="line"></div><div class="line"><span class="comment">/* 背景图垂直、水平均居中 */</span></div><div class="line"><span class="attribute">background-position</span>: center center;</div><div class="line"></div><div class="line"><span class="comment">/* 背景图不平铺 */</span></div><div class="line"><span class="attribute">background-repeat</span>: no-repeat;</div><div class="line"></div><div class="line"><span class="comment">/* 当内容高度大于图片高度时，背景图像的位置相对于viewport固定 */</span></div><div class="line"><span class="attribute">background-attachment</span>: fixed;</div><div class="line"></div><div class="line"><span class="comment">/* 让背景图基于容器大小伸缩 */</span></div><div class="line"><span class="attribute">background-size</span>: cover;</div><div class="line"></div><div class="line"><span class="comment">/* 设置背景颜色，背景图加载过程中会显示背景色 */</span></div><div class="line"><span class="attribute">background-color</span>: <span class="number">#464646</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="兼容性问题：IE8下透明的PNG图片设置opacity从1变化到0出现灰边"><a href="#兼容性问题：IE8下透明的PNG图片设置opacity从1变化到0出现灰边" class="headerlink" title="兼容性问题：IE8下透明的PNG图片设置opacity从1变化到0出现灰边"></a>兼容性问题：IE8下透明的PNG图片设置opacity从1变化到0出现灰边</h2><p><a href="http://www.cnblogs.com/hnyei/p/4620250.html" target="_blank" rel="external">链接标题</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Weinre的使用方法——手机同步调试" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/23/Weinre的使用方法——手机同步调试/" class="article-date">
+      <time datetime="2017-03-23T09:13:16.000Z" itemprop="datePublished">2017-03-23</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/23/Weinre的使用方法——手机同步调试/">Weinre的使用方法——手机同步调试</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="Weinre的使用方法"><a href="#Weinre的使用方法" class="headerlink" title="Weinre的使用方法"></a>Weinre的使用方法</h2><h3 id="1-gt-安装（一次就可以）：npm-g-install-weinre"><a href="#1-gt-安装（一次就可以）：npm-g-install-weinre" class="headerlink" title="1-&gt;安装（一次就可以）：npm -g install weinre"></a>1-&gt;安装（一次就可以）：npm -g install weinre</h3><h3 id="2-gt-运行：weinre-boundHost-all"><a href="#2-gt-运行：weinre-boundHost-all" class="headerlink" title="2-&gt;运行：weinre - -boundHost -all-"></a>2-&gt;运行：weinre - -boundHost -all-</h3><p><img src="https://leanote.com/api/file/getImage?fileId=586e18a0ab6441236e004b1c" alt="title"></p>
+<h3 id="2-location-8080"><a href="#2-location-8080" class="headerlink" title="2.location:8080"></a>2.location:8080</h3><p><img src="https://leanote.com/api/file/getImage?fileId=586e192dab6441209e004cb5" alt="title"></p>
+<h3 id="3-与手机界面同步，开始调试"><a href="#3-与手机界面同步，开始调试" class="headerlink" title="3.与手机界面同步，开始调试"></a>3.与手机界面同步，开始调试</h3><p><img src="https://leanote.com/api/file/getImage?fileId=586e1971ab6441209e004ccb" alt="title"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/weinre/">weinre</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-关于scss的配置问题" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/23/关于scss的配置问题/" class="article-date">
+      <time datetime="2017-03-23T09:12:26.000Z" itemprop="datePublished">2017-03-23</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/23/关于scss的配置问题/">关于scss的配置问题</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="关于scss的配置问题——如何设置编译文件css的路径"><a href="#关于scss的配置问题——如何设置编译文件css的路径" class="headerlink" title="关于scss的配置问题——如何设置编译文件css的路径"></a>关于scss的配置问题——如何设置编译文件css的路径</h2><p>–no-cache –update \$FileName\$:\$FileParentDir\$\css\$FileNameWithoutExtension\$.css –style expanded  </p>
+<p><a href="http://www.cnblogs.com/mrhgw/p/4535429.html" target="_blank" rel="external">Less/Sass编译工具，koala使用指南</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scss/">scss</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-关于获取日期" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/23/关于获取日期/" class="article-date">
+      <time datetime="2017-03-23T09:09:50.000Z" itemprop="datePublished">2017-03-23</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/23/关于获取日期/">关于获取日期</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <pre><code>var myDate = new Date();    
+ myDate.toLocaleDateString();//可以获取当前日期&quot;2017/2/14&quot;
+myDate.toLocaleTimeString();//可以获取当前时间&quot;上午11:54:45&quot;
+
+扩展：
+myDate.getYear();        //获取当前年份(2位)
+myDate.getFullYear();    //获取完整的年份(4位,1970-????)
+myDate.getMonth();       //获取当前月份(0-11,0代表1月)
+myDate.getDate();        //获取当前日(1-31)
+myDate.getDay();         //获取当前星期X(0-6,0代表星期天)
+myDate.getTime();        //获取当前时间(从1970.1.1开始的毫秒数)
+myDate.getHours();       //获取当前小时数(0-23)
+myDate.getMinutes();     //获取当前分钟数(0-59)
+myDate.getSeconds();     //获取当前秒数(0-59)
+myDate.getMilliseconds();    //获取当前毫秒数(0-999)
+myDate.toLocaleString( );        //获取日期与时间 &quot;2017/2/14 上午11:54:45&quot;
+
+
+
+//实时更新系统时间
+ window.onload = function() {
+  var show = document.getElementById(&quot;show&quot;);
+  setInterval(function() {
+   var time = new Date();
+   // 程序计时的月从0开始取值后+1
+   var m = time.getMonth() + 1;
+   var t = time.getFullYear() + &quot;-&quot; + m + &quot;-&quot;
+     + time.getDate() + &quot; &quot; + time.getHours() + &quot;:&quot;
+     + time.getMinutes() + &quot;:&quot; + time.getSeconds();
+   show.innerHTML = t;
+  }, 1000);
+ };
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/date/">date</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-添加数值千分位符号" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/23/添加数值千分位符号/" class="article-date">
+      <time datetime="2017-03-23T09:04:25.000Z" itemprop="datePublished">2017-03-23</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/23/添加数值千分位符号/">添加数值千分位符号</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="在页面中，遇到数值的时候，要记得添加千分位符"><a href="#在页面中，遇到数值的时候，要记得添加千分位符" class="headerlink" title="在页面中，遇到数值的时候，要记得添加千分位符"></a>在页面中，遇到<strong>数值</strong>的时候，要<strong>记得添加千分位符</strong></h2><p>如：<br>100.00  -&gt;   <strong>100.00</strong><br>1000.00   -&gt;   <strong>1,000.00</strong><br>1000000.00   -&gt; <strong>1,000,000.00</strong></p>
+<h2 id="一、针对正整数"><a href="#一、针对正整数" class="headerlink" title="一、针对正整数"></a>一、针对正整数</h2><pre><code>/*
+ * 为正整数添加千分位符号（仅限正整数）
+ * @param num (Number或者String)
+ * @type String
+ * */
+function numSetSymbol (num){
+    var result = num.toString();
+    for (var i = 0; i &lt; Math.floor((result.length-(1+i))/3); i++)
+    {
+        result = result.substring(0,result.length-(4*i+3))+&apos;,&apos;+result.substring(result.length-(4*i+3));
+    }
+    return result;
+    /*返回值为字符串*/
+}
+</code></pre><h2 id="二、不限数值类型"><a href="#二、不限数值类型" class="headerlink" title="二、不限数值类型"></a>二、不限数值类型</h2><pre><code>/**
+ * 将数值四舍五入后格式化.（不限数值类型）
+ *
+ * @param num 数值(Number或者String)
+ * @param cent 要保留的小数位(Number)
+ * @param isThousand 是否需要千分位 0:不需要,1:需要(数值类型);
+ * @return 格式的字符串,如&apos;1,234,567.45&apos;
+ * @type String
+ */
+function formatNumber(num,cent,isThousand) {
+    num = num.toString().replace(/\$|\,/g,&apos;&apos;);
+
+    // 检查传入数值为数值类型
+    if(isNaN(num)){
+        num = &quot;0&quot;;
+    }
+
+    // 获取符号(正/负数)
+    sign = (num == (num = Math.abs(num)));
+
+    num = Math.floor(num*Math.pow(10,cent)+0.50000000001); // 把指定的小数位先转换成整数.多余的小数位四舍五入
+    cents = num%Math.pow(10,cent);       // 求出小数位数值
+    num = Math.floor(num/Math.pow(10,cent)).toString();  // 求出整数位数值
+    cents = cents.toString();        // 把小数位转换成字符串,以便求小数位长度
+
+    // 补足小数位到指定的位数
+    while(cents.length&lt;cent){
+        cents = &quot;0&quot; + cents;
+    }
+
+    if(isThousand) {
+        // 对整数部分进行千分位格式化.
+        for (var i = 0; i &lt; Math.floor((num.length-(1+i))/3); i++)
+            num = num.substring(0,num.length-(4*i+3))+&apos;,&apos;+ num.substring(num.length-(4*i+3));
+    }
+
+    if (cent &gt; 0)
+        return (((sign)?&apos;&apos;:&apos;-&apos;) + num + &apos;.&apos; + cents);
+    else
+        return (((sign)?&apos;&apos;:&apos;-&apos;) + num);
+}    
+</code></pre><p>eg.<img src="http://i.imgur.com/oJ9BFs3.png" alt="千分位"></p>
+<hr>
+<p>2017/1/4<br>都新年了，本宝宝才来更新。<br>当年刚上传上去，我师糊就来砸场子了，真是晒脸。</p>
+<pre><code>/*
+ * 最简单粗暴版一
+ * @param X 不限数值类型
+ * @type String
+ * */
+function numberWithCommas1(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, &quot;,&quot;);
+}
+
+//简单粗暴版二
+function numberWithCommas(x) {
+    x = x.toString();
+    var pattern = /(-?\d+)(\d{3})/;
+    while (pattern.test(x))
+        x = x.replace(pattern, &quot;$1,$2&quot;);
+    return x;
+}
+</code></pre><hr>
+<p>2017/2/15<br>又来补一个，这个只是正则表达式写的不一样</p>
+<pre><code>//简单粗暴版三
+function numberWithCommas(x){
+    return x.toString().replace(/(\d)(?=(\d{3})+(\.|$))/g, &apos;$1,&apos;);
+}
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-CSS3如何实现超出指定文本以省略号显示效果" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/23/CSS3如何实现超出指定文本以省略号显示效果/" class="article-date">
+      <time datetime="2017-03-23T08:59:20.000Z" itemprop="datePublished">2017-03-23</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/23/CSS3如何实现超出指定文本以省略号显示效果/">CSS3如何实现超出指定文本以省略号显示效果</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="我是个链接！"><a href="#我是个链接！" class="headerlink" title=" 我是个链接！ "></a><a href="http://blog.csdn.net/billfeller/article/details/40436491" target="_blank" rel="external"> 我是个链接！ </a></h1><pre><code>&lt;style&gt;
+.text1 {
+    width:200px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    -o-text-overflow:ellipsis;
+    -webkit-text-overflow:ellipsis;
+    -moz-text-overflow:ellipsis;
+    white-space:nowrap;
+}
+.text2 {
+    width:200px;
+    word-break:break-all;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+}
+&lt;/style&gt;
+
+&lt;div class=&quot;text1&quot;&gt;热卖精选：从子频道（服饰鞋包，亲子，居家，美妆）档期里面挑选出来，库存大于30%的高信价比商品list，数量为50个&lt;/div&gt;
+
+&lt;br /&gt;
+
+&lt;div class=&quot;text2&quot;&gt;热卖精选：从子频道（服饰鞋包，亲子，居家，美妆）档期里面挑选出来，库存大于30%的高信价比商品list，数量为50个&lt;/div&gt;
+</code></pre><p>效果图</p>
+<p><img src="http://i.imgur.com/SF7hrYG.png" alt="title"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-promise粗暴用法" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/23/promise粗暴用法/" class="article-date">
+      <time datetime="2017-03-23T08:58:35.000Z" itemprop="datePublished">2017-03-23</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/23/promise粗暴用法/">promise粗暴用法</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><a href="https://wohugb.gitbooks.io/ecmascript-6/content/docs/promise.html" target="_blank" rel="external">promise用法</a><br>  <a href="http://mp.weixin.qq.com/s/4OB-0TwgRLalmNNUI1n-Ng" target="_blank" rel="external">大多数人不了解的Promise</a></p>
+<pre><code>//用法1
+ function example1(){
+     return new Promise(function (resolve, reject) {
+         resolve(param);
+     });
+ }
+ example1().then(function(param){
+     //执行example1之后...
+ }
+</code></pre><hr>
+<pre><code>//用法2
+function example2(){
+    var promise = $.Deferred();
+    //操作
+    ...
+    promise.resolve(param);
+    return promise;
+}
+//函数和回参一一对应
+$.when(example2(),...).done(function(param,...){
+//执行example2及其他函数后...
+});
+</code></pre><hr>
+<pre><code>//用法3
+var promise = new Promise(function(resolve, reject) {
+  if (/* 异步操作成功 */){
+    resolve(value);
+  } else {
+    reject(error);
+  }
+});
+
+promise.then(function(value) {
+  // success
+}, function(value) {
+  // failure
+});
+</code></pre><hr>
+<pre><code>//用法4
+var getJSON = function(url) {
+  var promise = new Promise(function(resolve, reject){
+    var client = new XMLHttpRequest();
+    client.open(&quot;GET&quot;, url);
+    client.onreadystatechange = handler;
+    client.responseType = &quot;json&quot;;
+    client.setRequestHeader(&quot;Accept&quot;, &quot;application/json&quot;);
+    client.send();
+
+    function handler() {
+      if (this.status === 200) { 
+              resolve(this.response); 
+          } else { 
+              reject(new Error(this.statusText)); 
+          }
+    };
+  });
+
+  return promise;
+};
+
+getJSON(&quot;/posts.json&quot;).then(function(json) {
+  console.log(&apos;Contents: &apos; + json);
+}, function(error) {
+  console.error(&apos;出错了&apos;, error);
+});
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-template模板用法" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/23/template模板用法/" class="article-date">
+      <time datetime="2017-03-23T08:57:27.000Z" itemprop="datePublished">2017-03-23</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/23/template模板用法/">template模板用法</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p> ADD ON 2017/03/09</p>
+<pre><code>//模板中调用function
+template.helper(&quot;模板中调用的方法名&quot;,方法名);
+template.helper(&quot;dateFormat&quot;,dateFormat);//日期格式化
+template.helper(&quot;numberWithCommas1&quot;,numberWithCommas1);//千分位符
+</code></pre><hr>
+<pre><code>/*
+ *单独的模板页面
+ *
+ */
+//初始化模板对象
+var renderXzqh;
+$.get(&apos;../../pages/stat/temple/xzqh.html&apos;, function (tpl) {
+    renderXzqh = template.compile(tpl);
+});
+
+//传入参数所需data，后调用渲染
+var html = renderXzqh({
+    xzqh: xzqh
+});
+$(&apos;#xzqh-temple&apos;).html(html);
+</code></pre><hr>
+<pre><code>/*
+ * 小模板
+ * id: &lt;script id=&quot;id&quot;&gt;
+ * data: data
+ * 
+ */
+//调用模板，参数渲染
+var html = template(&quot;infoTable&quot;, {data: statData});
+//页面中渲染的位置
+$(&quot;#statisticsInfo&quot;).html(html);
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/template/">template</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-条形图中的两个label" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -422,702 +1406,10 @@
 
 
   
-    <article id="post-ReadMe" class="article article-type-post" itemscope itemprop="blogPost">
   
-    <div class="article-meta">
-      <a href="/2017/03/20/ReadMe/" class="article-date">
-      <time datetime="2017-03-20T02:24:51.093Z" itemprop="datePublished">2017-03-20</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/20/ReadMe/">ReadMe</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <pre><code>偶滴博客只是写写自己平日里遇到的坑，犯的愚蠢的错误，还有学到的新知识。
-</code></pre>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Echarts直角坐标系基础配置" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/03/20/Echarts直角坐标系基础配置/" class="article-date">
-      <time datetime="2017-03-19T16:00:00.000Z" itemprop="datePublished">2017-03-20</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/20/Echarts直角坐标系基础配置/">Echarts直角坐标系基础配置</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h2 id="一、使用方式"><a href="#一、使用方式" class="headerlink" title="一、使用方式"></a>一、使用方式</h2><p><a href="http://echarts.baidu.com/echarts2/doc/doc.html#%E5%BC%95%E5%85%A5ECharts1" target="_blank" rel="external">！引入Echarts的两种方式</a></p>
-<h3 id="1-模块化包引入"><a href="#1-模块化包引入" class="headerlink" title="1.模块化包引入"></a>1.模块化包引入</h3><pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;utf-8&quot;&gt;
-    &lt;title&gt;ECharts&lt;/title&gt;
-
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;!-- 为ECharts准备一个具备大小（宽高）的Dom --&gt;
-    &lt;div id=&quot;main&quot; style=&quot;width: 600px;height:400px;&quot;&gt;&lt;/div&gt;
-    ...
-    &lt;!-- 引入 echarts.js --&gt;
-    &lt;script src=&quot;echarts.min.js&quot;&gt;&lt;/script&gt;
-    &lt;script type=&quot;text/javascript&quot;&gt;
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById(&apos;main&apos;));
-
-        // 指定图表的配置项和数据
-        var option = {
-
-        };
-
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
-        $(window).resize(function () {//图表随浏览器页面大小变化（响应式）
-            myChart.resize();
-        });
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre><h3 id="2-模块化单文件引入（推荐）"><a href="#2-模块化单文件引入（推荐）" class="headerlink" title="2.模块化单文件引入（推荐）"></a>2.模块化单文件引入（推荐）</h3><h4 id="Echarts单文件"><a href="#Echarts单文件" class="headerlink" title="Echarts单文件"></a>Echarts单文件</h4><p><img src="https://leanote.com/api/file/getImage?fileId=5832aaa9ab6441366c00c18e" alt="Echarts单文件"></p>
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;utf-8&quot;&gt;
-    &lt;title&gt;ECharts&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;!-- 为ECharts准备一个具备大小（宽高）的Dom --&gt;
-    &lt;div id=&quot;main&quot; style=&quot;width: 600px;height:400px;&quot;&gt;&lt;/div&gt; &lt;div id=&quot;main&quot; style=&quot;height:400px;&quot;&gt;&lt;/div&gt;
-    ...
-    &lt;!-- 引入 require.js --&gt;
-    &lt;script src=&quot;./js/require.js&quot;&gt;&lt;/script&gt;
-    &lt;!-- 引入 echarts.js --&gt;
-    &lt;script src=&quot;./js/echarts.js&quot;&gt;&lt;/script&gt;
-    &lt;script type=&quot;text/javascript&quot;&gt;
-        require.config({
-            paths: {
-                echarts: &apos;./js/dist&apos;
-            }
-        });
-        require(
-            [
-                &apos;echarts&apos;,
-                &apos;echarts/chart/line&apos;,   // 按需加载所需图表，如需动态类型切换功能，别忘了同时加载相应图表
-                &apos;echarts/chart/bar&apos;
-            ],
-            function (ec) {
-                var myChart = ec.init(document.getElementById(&apos;main&apos;));
-                var option = {
-                    ...
-                }
-                myChart.setOption(option);
-                $(window).resize(function () {//图表随浏览器页面大小变化（响应式）
-                    myChart.resize();
-                });
-            }
-        );
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre><h2 id="二、option配置参数——直角坐标系相关组件"><a href="#二、option配置参数——直角坐标系相关组件" class="headerlink" title="二、option配置参数——直角坐标系相关组件"></a>二、option配置参数——直角坐标系相关组件</h2><p>Attention！如果不是最后一个属性，需在配置后添加逗号英文半角的逗号,  此外，在配置中所有字符也都必须是英文半角的。</p>
-<pre><code>option = {
-            // /************************************ 标题***********************************/
-            title: {
-                show: true,
-                x: &apos;center&apos;, //横轴位置
-                y: &apos;top&apos;, //竖轴位置
-                //或者方位词控制位置，例如left: &apos;center&apos;
-                text: &apos;折线图——主标题&apos;, //主标题内容
-
-                textStyle: {//主标题的具体样式fontFamily、fontWeight等
-                    fontSize: &apos;18&apos;, //字体大小
-                    fontWeight: &apos;600&apos;,//字体粗细 —— bold、bolder
-                    fontStyle: &apos;normal&apos;,//字体样式——斜体（italic、oblique）、正常（normal）
-                    fontFamily: &apos;SimSun&apos;,//标题字体
-                    color: &apos;#3b8bce&apos;//标题颜色
-                },
-                backgroundColor: &apos;#f02&apos;,//标题模块背景色
-                borderColor: &apos;#ccc&apos;,
-                borderWidth: 10,
-                padding: 20,
-                margin: &apos;20&apos;,
-
-                link: &apos;&apos;, //主标题链接
-                target: &apos;blank&apos;, // 指定窗口打开主标题超链接 self（当前窗口） | blank（新窗口）
-
-
-                subtext: &apos;纯属虚构&apos;, // 副标题内容
-                sublink: &apos;&apos;, //副标题链接
-                subtextStyle: {//副标题的具体样式fontFamily、fontWeight等
-                    //同主标题样式
-                },
-                subtarget: &apos;&apos;,// 指定窗口打开副标题超链接 self（当前窗口） | blank（新窗口）
-                textAlign: &apos;left&apos;, //文本水平对齐
-                textBaseline: &apos;top&apos;, //垂直对齐
-
-                itemGrap: 10, //主标题和副标题的上下间距
-                shadowColor: &apos;rgba(0,0,0,.5)&apos;, //阴影颜色
-                shadowBlur: 10, //阴影模糊大小
-                shadowOffsetX: 10,//偏离水平位置
-                shadowOffsetY: 10//偏离垂直位置
-            },
-            // /*************************************样例***************************************/
-            legend: {
-                show: true,
-                x: &apos;left&apos;,
-                y: 10,
-                textStyle: {//文字样式
-
-                },
-                width: &apos;auto&apos;,//宽高默认自适应
-                height: &apos;auto&apos;,
-                orient: &apos;vertical&apos;,//图例的布局 水平（horizontal） | 垂直（vertical）
-                align: &apos;left&apos;, //图例标记和文本的对齐，默认auto， 图例在左（left） | 图例文字都居中，重叠（center）| 图例在右（right）
-                itemWidth: 20,//图例大小样式
-                itemHeight: 10,
-                /*样例格式*/
-                formatter: &apos;{name}就是这么任性&apos;,
-                formatter: function (name) {
-                // 对name参数进行操作，返回想要的样例格式
-                    return echarts.format.truncateText(name + &apos;page&apos;, 50);//number控制样例的宽度
-                },
-                tooltip: { //提示框,可在样例过长被省略时使用
-                    show: true,
-                    position: [50, 50]
-                },
-
-                selectedMode: &apos;multiple&apos;,//图例选选择模式改变系列的显示状态，显示多个（multiple） 或者 单个（single）
-                inactiveColor: &apos;#ccc&apos;,//图例关闭时的颜色
-
-                /*边框样式*/
-                borderColor: &apos;#f02&apos;,//, &apos;#545454&apos;,&apos;#999&apos; 边框颜色
-                borderWidth: 1, //边框宽度
-                borderType: &apos;solid&apos;, //边框类型
-
-                /*投影样式*/
-                shadowColor: &apos;rgba(0,0,0,.5)&apos;, //投影颜色
-                shadowBlur: 10, //模糊程度
-                shadowOffsetX: 10, //偏离x的距离
-                shadowOffsetY: 10, //偏离y的距离
-                opacity: 0.5,//可在rbga中直接设置
-                data: [&apos;邮件营销&apos;,&apos;联盟广告&apos;, &apos;视频广告&apos;, &apos;直接访问&apos;, &apos;搜索引擎&apos;]//默认样式
-                data: [{
-                        name:&apos;邮件营销&apos;,
-                     // 强制设置图形为圆。
-                        icon: &apos;circle&apos;, //&apos;circle&apos;, &apos;rect&apos;, &apos;roundRect&apos;, &apos;triangle&apos;, &apos;diamond&apos;, &apos;pin&apos;, &apos;arrow&apos; 
-                        //&apos;image://url&apos;设置为图片，其中 url 为图片的链接。
-                     // 设置文本为红色
-                        textStyle: {
-                            color: &apos;blue&apos;
-                         }
-                    }
-                },
-                ...
-                ]
-            },
-            // /*************************************网格***********************************/
-            grid: {//整个图表的位置
-                x: &apos;10%&apos;, //与容器左边的距离
-                x2: &apos;10%&apos;,//与容器右边的距离
-                y: &apos;20%&apos;,//与容器上边的距离
-                y2: &apos;20%&apos;,//与容器下面的距离
-
-                //如果设置网格宽高则无需设置位置
-                width: &apos;&apos;,//网格宽度
-                height: &apos;&apos;,//网格高度
-                 containLabel: true//是否包括 刻度标签（XY轴）
-
-                 // /*边框样式*/
-                borderColor: &apos;#f02&apos;,//, &apos;#545454&apos;,&apos;#999&apos; 边框颜色
-                borderWidth: 1, //边框宽度
-                borderType: &apos;solid&apos;, //边框类型
-
-                // /*投影样式*/
-                shadowColor: &apos;rgba(0,0,0,.5)&apos;, //投影颜色
-                shadowBlur: 10, //模糊程度
-                shadowOffsetX: 10, //偏离x的距离
-                shadowOffsetY: 10, //偏离y的距离
-                opacity: 0.5,//可在rbga中直接设置
-
-            },
-            // /************************************工具箱*************************************/
-            toolbox: {
-                show: true,
-                x2: &apos;10%&apos;,
-                y: &apos;5%&apos;,
-                feature: {
-                    // mark: {show: true},
-                    dataView: {show: true, readOnly: false}, //数据视图
-                    magicType: {show: true, type: [&apos;line&apos;, &apos;bar&apos;, &apos;stack&apos;, &apos;tiled&apos;]}, //类型切换
-                    restore: {show: true}, //还原视图
-                    saveAsImage: {show: true}, //保存为图片
-                    dataZoom: { //数据缩放
-                        show: true
-                    },
-                    brush: {//选框组件的按键
-                        show: true,
-                        //对单个工具样式进行设置
-                        iconStyle: {//图标样式
-                            normal: {//正常情况下
-                                borderColor: &apos;#545454&apos;,//, &apos;#545454&apos;,&apos;#999&apos;
-                                borderWidth: 1,
-                                borderType: &apos;solid&apos;,
-                                shadowColor: &apos;rgba(0,0,0,.5)&apos;,
-                                shadowBlur: 10,
-                                shadowOffsetX: 10,
-                                shadowOffsetY: 10,
-                                opacity: 0.5,
-                                textPosition: &apos;left&apos; //文字位置
-
-                            },
-                            emphasis: {//鼠标经过时，样式属性同上
-
-                            }
-
-                        }
-
-                    }
-                },
-                //对工具箱内所有工具进行相同的样式设置
-                iconStyle: {//图标样式
-                    normal: {
-                        borderColor: &apos;#f02&apos;,//, &apos;#545454&apos;,&apos;#999&apos;
-                        borderWidth: 1,
-                        borderType: &apos;solid&apos;,
-                        shadowColor: &apos;rgba(0,0,0,.5)&apos;,
-                        shadowBlur: 10,
-                        shadowOffsetX: 10,
-                        shadowOffsetY: 10,
-                        opacity: 0.5,
-                        textPosition: &apos;left&apos;
-
-                    },
-                    emphasis: {//鼠标经过时，样式属性同上
-
-                    }
-
-                }
-
-            },
-            calculable: false,//是否能够拖拽重计，Echarts3不支持
-            // /**************************************X轴*************************************/
-            xAxis: [
-                {
-                    type: &apos;category&apos;,//&apos;value&apos;数值轴，适用于连续数据。 
-                    &apos;category&apos;类目轴，适用于离散的类目数据，为该类型时必须通过 data 设置类目数据。 
-                    &apos;time&apos;时间轴，适用于连续的时序数据，与数值轴相比时间轴带有时间的格式化，在刻度计算上也有所不同，例如会根据跨度的范围来决定使用月，星期，日还是小时范围的刻度。
-                    &apos;log&apos; 对数轴。适用于对数数据。
-
-                    min: 100,//类目轴中无效
-                    max: 1000,
-                    splitNumber: 5,//坐标轴的分割段数(预估值)，类目轴中无效
-
-                      /*设置x轴名称及样式*/
-                    name: &apos;&apos;,//定义横轴名称,默认位置在横轴末端
-                    nameLocation: &apos;start&apos;,//仅三个位置 middle | end
-                    boundaryGap: false, //坐标轴两边留白 ,type 为数值型的时候可设置 [num, num] | [ &apos;%&apos;,&apos;%&apos;]
-                    nameTextStyle:{ /*坐标轴名称样式*/
-                    },
-                    nameGap:  16, //与坐标轴距离
-                    nameRotate : 30,//旋转角度
-
-                    inverse: false,//是否反向显示
-                    silent: false,//静态不交互
-
-                    // /*关于刻度线的样式*/
-                    axisTick: {//是否显示刻度
-                        show: true,
-                        alignWithLabel: true,//类目轴中在 boundaryGap 为 true 的时候有效，可以保证刻度线和标签对齐。
-                        inside: false,
-                        length: 5,
-                        lineStyle:{
-                        color: &apos;#f03&apos;,
-                        width: 1,
-                        type: &apos;solid&apos;, //指示器类型 实线（solid） | 点线（dotted） | 虚线（dashed）;
-                        shadowColor: &apos;rgba(0,0,0,.5)&apos;, //阴影颜色
-                        shadowBlur:10, //阴影模糊大小
-                        shadowOffsetX: 10,//偏离水平位置
-                        shadowOffsetY: 10,//偏离垂直位置
-                        opacity: 0.9
-                        }
-                    },
-                    boundaryGap: false, //坐标轴两边留白 ,type 为数值型的时候可设置 [num, num]
-
-                    data: [&apos;周一&apos;, &apos;周二&apos;, &apos;周三&apos;, &apos;周四&apos;, &apos;周五&apos;, &apos;周六&apos;, &apos;周日&apos;],//默认样式
-
-                    data: [//对单个数据进行样式配置
-                    {
-                        value: &apos;周一&apos;,
-                        textStyle:{
-                           color: &apos;#333&apos;,
-                           align: &apos;right&apos;,
-                           baseline: &apos;top&apos;
-                     }
-                     }
-                     ...
-                     ],
-                    axisLabel: {//坐标轴刻度标签的相关设置。
-                        interval: 1, //刻度和数据间隔显示
-                        textStyle: {
-                            color: function (val) {
-                            //对x轴数据进行判断，返回颜色字符串
-                                return val == &apos;周一&apos; ? &apos;red&apos; : &apos;green&apos;;
-                            }
-                        },
-                        formatter: function (val) {
-                        //控制x轴参数名的格式输出
-                            if (val == &apos;周三&apos;) {
-                                return val + &apos;kg&apos;;
-                            } else {
-                                return val;
-                            }
-                        }
-                    }
-                    splitLine: { //图表背景的横轴虚线
-                        show: true
-                    },
-                    splitArea: { //分割区域
-                        show: true
-
-                    }
-                }
-            ],
-            // /**************************************Y轴*************************************/
-            yAxis: [
-                {
-                    //同x轴属性
-                }
-            ],
-            // /************************************提示框**********************************/
-            tooltip: {
-                show: true,
-                trigger: &apos;item&apos;,// 触发类型 数据项图形触发（item） | 坐标轴（xAxis）
-                showContent: true, //是否显示提示框悬浮层
-                alwaysShowContent: false, //永远显示提示框内容
-                triggerOn: &apos;mousemove&apos;, //mousemove //提示框的触发形式 点击（click） | 鼠标移动（mousemove） |不触发（none）
-                showDelay: 0,//浮层显示延迟 ms——！在 triggerOn 为 &apos;mousemove&apos; 时有效。
-                hideDelay: 0,//浮层隐藏延迟 ms——！在 alwaysShowContent 为 &apos;true&apos; 时无效
-                enterable: false, //鼠标能否进入提示框
-                axisPointer: {   // 坐标轴指示器，坐标轴触发有效
-                    type: &apos;shadow&apos;, // 默认为直线，可选为：直线指示器&apos;line&apos;
-                                    // 阴影指示器&apos;shadow&apos; | 十字准星指示器&apos;cross&apos;
-                    axis: &apos;x&apos;,   //指示器坐标轴&apos;x&apos;, &apos;y&apos;, &apos;radius&apos;, &apos;angle&apos;
-                    lineStyle: {//直线指示器样式
-                        color: &apos;#f03&apos;,
-                        width: 1,
-                        type: &apos;solid&apos;, //指示器类型 实线（solid） | 点线（dotted） | 虚线（dashed）;
-                        shadowColor: &apos;rgba(0,0,0,.5)&apos;, //阴影颜色
-                        shadowBlur:10, //阴影模糊大小
-                        shadowOffsetX: 10,//偏离水平位置
-                        shadowOffsetY: 10,//偏离垂直位置
-                        opacity: 0.9
-
-                    },
-                    shadowStyle: {//阴影指示器样式，同上
-
-                    },
-                    crossStyle: {//十字准星指示器样式
-                        //同上
-                        textStyle: {// 提示文字的样式
-                            fontSize: &apos;18&apos;, //字体大小
-                            fontWeight: &apos;600&apos;,//字体粗细 —— bold、bolder
-                            fontStyle: &apos;normal&apos;,//字体样式——斜体（italic、oblique）、正常（normal）
-                            fontFamily: &apos;SimSun&apos;,//字体
-                            color: &apos;#3b8bce&apos;//颜色
-                        }
-
-                    }
-                }
-
-                position: function (point, params, dom) {//返回格式必须是数组Array[]格式 [num, num]
-                    // point:鼠标位置Array
-                    console.info(&apos;提示框位置：&apos;, params);
-                    return [point[0], 10];
-                },
-                //格式控制器
-                formatter: &apos;{b}&lt;br/&gt;{a0}: {c0}&lt;br /&gt;{a1}: {c1}&lt;br/&gt;&apos; + &apos;{a2}: {c2}&lt;br /&gt;{a3}: {c3}&lt;br /&gt;{a4}: {c4}&apos;, //a：系列名，b：数据名，c：数据值
-                formatter: function(params, ticket, callback){
-                    console.info(&apos;formatter数据集:&apos;,params);
-                },
-
-                //为提示框浮层添加阴影
-                extraCssText: &apos;box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);&apos;
-
-            },
-            // /************************************数据缩放**********************************/
-            dataZoom: [
-                {    type: &apos;inside&apos;
-                }
-                {
-                    id: &apos;dataZoomX&apos;,
-                    type: &apos;slider&apos;,
-                    xAxisIndex: [0],
-                    filterMode: &apos;filter&apos;
-                },
-                {
-                    id: &apos;dataZoomY&apos;,
-                    type: &apos;slider&apos;,
-                    yAxisIndex: [0],
-                    filterMode: &apos;empty&apos;
-                }
-            ],
-            series: [
-                {
-                    name: &apos;邮件营销&apos;,//数据名
-                    type: &apos;line&apos;,
-                    stack: &apos;总量&apos;,
-                    label: {//针对柱状图 ，饼图
-                        //显示数值标签
-                        normal: {//正常情况下
-                            show:true,
-                            position:&apos;inside&apos;,//&apos;top&apos;&apos;left&apos;&apos;right&apos;&apos;bottom&apos;&apos;inside&apos;&apos;insideLeft&apos;,&apos;insideRight&apos;&apos;insideTop&apos;&apos;insideBottom&apos;&apos;insideTopLeft&apos;,&apos;insideBottomLeft&apos;&apos;insideTopRight&apos;&apos;insideBottomRight&apos;
-
-                        },
-                        emphasis: {
-                        //鼠标经过时
-                        }
-                    }
-                    //系列中的数据标注内容
-                    markPoint: {
-                        symbol: &apos;circle&apos;,
-                        //标注图标：&apos;circle&apos;, &apos;rect&apos;, &apos;roundRect&apos;,&apos;triangle&apos;, &apos;diamond&apos;, &apos;pin&apos;, &apos;arrow&apos;,&apos;image://url&apos;//标注图标或自定义图片
-                        data: [
-                            {type: &apos;max&apos;, name: &apos;最大值&apos;, symbolSize: 200},
-                            {type: &apos;min&apos;, name: &apos;最小值&apos;}
-                        ]
-
-                    },
-                    //系列中的数据标线内容
-                    markLine: {
-                        data: [
-                            {type: &apos;average&apos;, name: &apos;平均值&apos;}
-                        ],
-                        lineStyle: {//数据标线样式
-                            normal: {
-                                // show: true
-                                // type: &apos;solid&apos;
-                            }
-                        }
-                    },
-                    itemStyle: {
-                        normal: {
-                            barBorderRadius: [5, 5, 0, 0]
-                            color: &apos;#2ec7c9&apos;
-                        }
-
-                    },
-                    data: [
-                    {
-                     value: msglossrate1, //值为变量
-                     name: &apos;邮件营销&apos;,
-                     itemStyle: {
-                        normal: {
-                            color: &apos;#00EE00&apos;,
-                            label: {
-                                show: function () {
-                                    if (msglossrate1 == 0) {
-                                     return true;
-                                    }
-                                }()
-                            },
-                            labelLine: {
-                                show: function () {
-                                    if (msglossrate1 == 0) {
-                                        return false;
-                                    }
-                                }(),
-                                length: 5
-                            }
-                        }
-                    }
-                    }, 132, 101, 134, 90, 230, 210]
-
-                },
-                {
-                    name: &apos;联盟广告&apos;,
-                    type: &apos;line&apos;,
-                    stack: &apos;总量&apos;,
-                    data: [220, 182, 191, 234, 290, 330, 310]
-                },
-                {
-                    name: &apos;视频广告&apos;,
-                    type: &apos;line&apos;,
-                    stack: &apos;总量&apos;,
-                    data: [150, 232, 201, 154, 190, 330, 410]
-                },
-                {
-                    name: &apos;直接访问&apos;,
-                    type: &apos;line&apos;,
-                    stack: &apos;总量&apos;,
-                    data: [320, 332, 301, 334, 390, 330, 320]
-                },
-                {
-                    name: &apos;搜索引擎&apos;,
-                    type: &apos;line&apos;,
-                    stack: &apos;总量&apos;,
-                    data: [820, 932, 901, 934, 1290, 1330, 1320]
-                }
-            ]
-        };
-</code></pre><hr>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><pre><code>1.是否显示——&gt;show: true | false， 所有组件都有的一级属性，其实当你在option中写出这个组件名时就已经默认显示true。
-
-2.文字样式
-凡是有文字或者数值输出显示的组件，都存在textStyle属性配置文字样式
-textStyle:{
-    color: &apos;#333&apos;,//字体颜色
-    fontSize: &apos;12px&apos;,//字体大小
-    fontWeight: &apos;normal&apos;,//字体粗细 —— bold、bolder
-    fontStyle: &apos;normal&apos;, //字体样式——斜体（italic、oblique）、正常（normal）
-    fontFamily: &apos;SimSun&apos;//宋体
-},
-此外padding,margin,backgroundColor,borderColor,borderWidth等属性通常与textStyle同级
-
-3.位置
- 1) position: left | right | center | [num, num] | [&apos;%&apos;,&apos;%&apos;] |...
- 拥有此属性的组件有：tooltip(提示框), xAxis(x轴), yAxis(y轴)
-
- 2)  x： , y:  ,x2: , y2:   ——&gt;与容器边框的距离
-      - x: &apos;10%&apos;, //与容器左边的距离
-      - x2: &apos;10%&apos;,//与容器右边的距离
-      - y: &apos;20%&apos;,//与容器上边的距离
-      - y2: &apos;20%&apos;,//与容器下面的距离
- 拥有此属性的组件有：title(标题), toolbox(辅助工具箱), grid(网格), legend(图例)
-
- 3) left | right | top | bottom
- 拥有此属性的组件有：title(标题), toolbox(辅助工具箱), grid(网格), legend(图例)
-
-4.待续......
-</code></pre><h3 id="ADD-OPTION"><a href="#ADD-OPTION" class="headerlink" title="ADD OPTION"></a>ADD OPTION</h3><p> //xAxis中的 axisLabel的过长换行</p>
-<pre><code>formatter: function(value){
-                         console.info(&apos;params&apos;,value);
-                         var newParamsName = &quot;&quot;;// 最终拼接成的字符串
-                         var paramsNameNumber = value.length;// 实际标签的个数
-                         var provideNumber = 8;// 每行能显示的字的个数
-                         var rowNumber = Math.ceil(paramsNameNumber / provideNumber);// 换行的话，需要显示几行，向上取整
-                         /**
-                         * 判断标签的个数是否大于规定的个数， 如果大于，则进行换行处理 如果不大于，即等于或小于，就返回原标签
-                         */
-                         // 条件等同于rowNumber&gt;1
-                         if (paramsNameNumber &gt; provideNumber) {
-                         /** 循环每一行,p表示行 */
-                         for (var p = 0; p &lt; rowNumber; p++) {
-                         var tempStr = &quot;&quot;;// 表示每一次截取的字符串
-                         var start = p * provideNumber;// 开始截取的位置
-                         var end = start + provideNumber;// 结束截取的位置
-                         // 此处特殊处理最后一行的索引值
-                         if (p == rowNumber - 1) {
-                         // 最后一次不换行
-                         tempStr = value.substring(start, paramsNameNumber);
-                         } else {
-                         // 每一次拼接字符串并换行
-                         tempStr = value.substring(start, end) + &quot;\n&quot;;
-                         }
-                         newParamsName += tempStr;// 最终拼成的字符串
-                         }
-
-                         } else {
-                         // 将旧标签的值赋给新标签
-                         newParamsName = value;
-                         }
-                         //将最终的字符串返回
-                         return newParamsName
-                         }
-
-
-         //formatter:function(val){
-                    //    return val.split(&quot;&quot;).join(&quot;\n&quot;);
-                    //}
-</code></pre>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Echarts/">Echarts</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 </div>
       <footer id="footer">
